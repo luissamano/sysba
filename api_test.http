@@ -1,0 +1,21 @@
+###
+GET https://localhost:5001/api/empleados HTTP/1.1
+
+
+###
+GET https://localhost:5001/api/departamento HTTP/1.1
+
+
+### 
+GET https://localhost:5001/api/empleados/departamento/2 HTTP/1.1
+
+###
+POST https://localhost:5001/api/empleados HTTP/1.1
+Content-Type: application/json
+
+{
+    "nombre": "Juan",
+    "edad": 31,
+    "sexo": "M",
+    "id_departamento": 1
+}

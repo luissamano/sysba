@@ -1,17 +1,18 @@
 import React, { Fragment, useState } from 'react';
-import PropTypes from 'prop-types';
+
 
 const Formulario = ({ crearEmpleado }) => {
-  // Crear State de Citas
+
   const [empleado, actualizarEmpleado] = useState({
     nombre: '',
     edad: null,
     sexo: '',
     id_departamento: null,
   });
+
   const [error, actualizarError] = useState(false);
 
-  // Funci�n que se ejecuta cada que el usuario escribe en un input
+
   const actualizarState = e => {
     actualizarEmpleado({
       ...empleado,
@@ -20,13 +21,11 @@ const Formulario = ({ crearEmpleado }) => {
   };
 
   // Extraer los valores
-  const { nombre, edad, sexo, id_departamento} = empleado;
+  const { nombre, edad, sexo, id_departamento } = empleado;
 
-  // Cuando el usuario presiona agregar cita
   const submitEmpleado = e => {
     e.preventDefault();
 
-    // Validar
     if (
       nombre.trim() === '' ||
       edad.trim() === '' ||
@@ -36,19 +35,18 @@ const Formulario = ({ crearEmpleado }) => {
       actualizarError(true);
       return;
     }
-    
-    actualizarError(false);
 
-    // Crear la cita
     crearEmpleado(empleado);
 
-    // Reiniciar el form
+    actualizarError(false);
+
     actualizarEmpleado({
       nombre: '',
-      edad: null,
+      edad: '',
       sexo: '',
-      id_departamento: null,
+      id_departamento: '',
     });
+
   };
 
   return (
@@ -84,6 +82,7 @@ const Formulario = ({ crearEmpleado }) => {
         <input
           type="text"
           name='sexo'
+          placeholder='M(masculino) / F(Femenino)'
           className='u-full-width'
           onChange={actualizarState}
           value={sexo}
@@ -96,19 +95,16 @@ const Formulario = ({ crearEmpleado }) => {
           className='u-full-width'
           onChange={actualizarState}
           value={id_departamento}
+          placeholder='1(Finanzas) - 2(RH) - 3(Sistemas)'
         />
-
 
         <button type='submit' className='u-full-width button-primary'>
           Agregar Empleado
         </button>
+
       </form>
     </Fragment>
   );
-};
-
-Formulario.propTypes = {
-  crearEmpleado: PropTypes.func.isRequired,
 };
 
 export default Formulario;
