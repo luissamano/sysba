@@ -8,6 +8,11 @@ using api.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
+using NLog.Web;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Hosting;
+
 namespace api.Controllers
 {
     [Route("api/[controller]")]
@@ -27,7 +32,7 @@ namespace api.Controllers
                 using (SqlCommand cmd = new SqlCommand("spDepartamentos", conn))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    conn.Open();
+                    await conn.OpenAsync();
 
                     using (SqlDataReader reader = await cmd.ExecuteReaderAsync())
                     {

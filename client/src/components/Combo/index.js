@@ -1,16 +1,31 @@
-import React from "react";
+import React, { useContext, useState } from "react";
+import { DepartamentosContext } from '../../Context/DepartamentosContext';
 
-const Combo = ({options}, event) => {
+const Combo = () => {
 
-    const setStorage = event => {
-        localStorage.setItem('valueCombo', event.target.value);        
-    };
+    const { departamentos } = useContext(DepartamentosContext);
+    const [buscar, setBuscar] = useState({
+        selectDepartamento: 0
+    });
+
+    const obtenerDatos = e => {
+        setBuscar({
+            ...buscar,
+            "selectDepartamento": e.target.value,
+            
+        });
+        localStorage.setItem("selectDepartamento", e.target.value)
+    }
+
 
     return (
-        <select value={localStorage.getItem('valueCombo') === undefined ? 0 : localStorage.getItem('valueCombo')}>
-            {options.map((item) => (
-                <option key={item.id} value={item.id}>{item.departamento}</option>
-          ))}
+        <select className="form-control" name="selectDepartamento" onChange={obtenerDatos}>
+            <option value="0">-- Seleciona un departamento --</option>
+            {departamentos.map(departamento => (
+                <option key={departamento.id} value={departamento.id}>
+                    {departamento.departamento}
+                </option>
+            ))}
         </select>
 
     )

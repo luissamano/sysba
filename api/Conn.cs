@@ -8,7 +8,7 @@ namespace api
     public static class ConnString
     {
         private static readonly string cName =
-            @"Data Source=.;Initial Catalog=db_examen;Trusted_Connection=True;";
+            @"Data Source=.\SQLEXPRESS;Initial Catalog=db_examen;Trusted_Connection=True;";
 
         public static string ServerName
         {

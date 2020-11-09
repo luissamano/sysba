@@ -8,6 +8,9 @@ namespace api
 {
     public class Startup
     {
+
+        readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -22,8 +25,12 @@ namespace api
         {
             services.AddControllers();
             services.AddCors(options => {
-                options.AddPolicy("Todos",
-                builder => builder.WithOrigins("*").WithHeaders("*").WithMethods("*"));
+                options.AddPolicy(name: MyAllowSpecificOrigins,
+                                    builder => {
+                                        builder.WithOrigins("*")
+                                                .AllowAnyHeader()
+                                                .AllowAnyMethod();
+                                    });
             });
         }
 
@@ -36,8 +43,10 @@ namespace api
             }
 
             app.UseHttpsRedirection();
-
+             app.UseStaticFiles();
             app.UseRouting();
+
+            app.UseCors(MyAllowSpecificOrigins);
 
             app.UseAuthorization();
 
@@ -46,7 +55,6 @@ namespace api
                 endpoints.MapControllers();
             });
 
-            app.UseCors("Todos");
         }
     }
 }

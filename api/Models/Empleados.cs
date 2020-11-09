@@ -12,5 +12,6 @@ namespace api.Models
         public int edad { get; set; }
         public string sexo { get; set; }
         public int id_departamento { get; set; }
+        public string departamento { get; set; }
     }
 }
